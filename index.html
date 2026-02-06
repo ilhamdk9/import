@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2920/2920323.png">
+    <title>Import OS</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shine: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a;
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .blobs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: move 20s infinite alternate;
+        }
+
+        .b1 {
+            top: -10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: #4f46e5;
+            animation-delay: 0s;
+        }
+
+        .b2 {
+            bottom: -10%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: #db2777;
+            animation-delay: -5s;
+        }
+
+        .b3 {
+            top: 40%;
+            left: 40%;
+            width: 300px;
+            height: 300px;
+            background: #0ea5e9;
+            animation-delay: -10s;
+        }
+
+        @keyframes move {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        #app {
+            display: flex;
+            height: 100vh;
+            transition: 0.3s;
+        }
+
+        .sidebar {
+            width: 260px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--glass-border);
+            z-index: 50;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .nav-item {
+            padding: 14px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .section {
+            display: none;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        input,
+        select {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: inherit;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+
+        select option {
+            background: #1e293b;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f172a;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .mobile-header {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 20px;
+        }
+
+        .menu-btn {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        #install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: none;
+            z-index: 999;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                height: 100%;
+                width: 80%;
+                background: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(20px);
+                border-right: 1px solid var(--glass-border);
+            }
+
+            .sidebar.open {
+                left: 0;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .mobile-header {
+                display: flex;
+            }
+
+            .content {
+                padding: 0 15px 80px 15px;
+            }
+
+            #app {
+                flex-direction: column;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blobs">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+    </div>
+
+    <div id="install-prompt" onclick="installPWA()">📲 Install Aplikasi</div>
+
+    <div id="login-screen" class="glass">
+        <div class="login-box glass-card">
+            <div class="logo" style="justify-content: center; margin-bottom: 10px;">
+                <i class="ri-shield-key-line"></i> IMPORT OS
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Login Administrator</p>
+
+            <input type="email" id="email" placeholder="Email Admin">
+            <input type="password" id="password" placeholder="Password">
+            <button class="btn-primary" onclick="handleLogin()">MASUK SYSTEM</button>
+            <p id="login-error" style="color: var(--danger); margin-top: 15px; font-size: 0.9rem;"></p>
+        </div>
+    </div>
+
+    <div id="app" style="display: none;">
+
+        <div class="sidebar glass" id="sidebar">
+            <div class="logo">
+                <i class="ri-global-line"></i> IMPORT OS
+            </div>
+
+            <div class="nav-item active" onclick="nav('master')">
+                <i class="ri-database-2-line"></i> Master Data
+            </div>
+            <div class="nav-item" onclick="nav('import')">
+                <i class="ri-ship-line"></i> Restock / Import
+            </div>
+            <div class="nav-item" onclick="nav('sales')">
+                <i class="ri-shopping-cart-2-line"></i> Simulasi Sales
+            </div>
+
+            <div style="flex: 1;"></div>
+            <div class="nav-item" onclick="handleLogout()"
+                style="color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2);">
+                <i class="ri-logout-box-line"></i> Logout
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div class="mobile-header glass-card">
+                <div class="logo" style="margin: 0; font-size: 1.2rem;">IMPORT OS</div>
+                <i class="ri-menu-4-line menu-btn" onclick="toggleSidebar()"></i>
+            </div>
+
+            <div id="master" class="section active">
+                <h2>Master Data</h2>
+                <div class="grid">
+                    <div class="glass-card">
+                        <h3><i class="ri-add-circle-line"></i> Produk Baru</h3>
+                        <input type="text" id="m_sku" placeholder="SKU (Contoh: VC-001)">
+                        <input type="text" id="m_prodName" placeholder="Nama Barang">
+                        <button class="btn-primary" onclick="addMaster('products')">Simpan Produk</button>
+                    </div>
+                    <div class="glass-card">
+                        <h3>Database Produk</h3>
+                        <div style="max-height: 200px; overflow-y: auto;">
+                            <table id="tbl_products">
+                                <thead>
+                                    <tr>
+                                        <th>Produk</th>
+                                        <th style="text-align:right">HPP Last</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>Data Mitra</h3>
+                        <div class="grid-2">
+                            <div>
+                                <input type="text" id="m_suppName" placeholder="Nama Supplier">
+                                <button class="btn-primary" onclick="addMaster('suppliers')">Add Supplier</button>
+                            </div>
+                            <div>
+                                <input type="text" id="m_fwdName" placeholder="Nama Forwarder">
+                                <button class="btn-primary" onclick="addMaster('forwarders')">Add Forwarder</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="import" class="section">
+                <h2>Restock Import</h2>
+                <div class="glass-card">
+                    <div class="grid">
+                        <div>
+                            <label>Pilih Produk</label>
+                            <select id="i_product"></select>
+                        </div>
+                        <div>
+                            <label>Pilih Supplier</label>
+                            <select id="i_supplier"></select>
+                        </div>
+                    </div>
+
+                    <div style="margin: 15px 0; border-top: 1px solid var(--glass-border);"></div>
+
+                    <div class="grid">
+                        <div>
+                            <label>Harga Beli (Asing)</label>
+                            <input type="number" id="i_price" placeholder="RMB / USD">
+                        </div>
+                        <div>
+                            <label>Kurs IDR</label>
+                            <input type="number" id="i_rate" value="2300">
+                        </div>
+                        <div>
+                            <label>Qty (Pcs)</label>
+                            <input type="number" id="i_qty">
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div>
+                            <label>Ongkir Forwarder (Total IDR)</label>
+                            <input type="number" id="i_shipCost">
+                        </div>
+                        <div>
+                            <label>Pajak / Lainnya (IDR)</label>
+                            <input type="number" id="i_tax" value="0">
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" onclick="saveImport()">
+                        <i class="ri-calculator-fill"></i> HITUNG & UPDATE STOK
+                    </button>
+                </div>
+
+                <div class="glass-card">
+                    <h3>Riwayat Import Terakhir</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="min-width: 500px;">
+                            <thead>
+                                <tr>
+                                    <th>Produk</th>
+                                    <th>Supplier</th>
+                                    <th>Qty</th>
+                                    <th>HPP / Pcs</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl_imports"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sales" class="section">
+                <h2>Simulasi Penjualan</h2>
+
+                <div class="grid">
+                    <div class="glass-card">
+                        <h3>Parameter Jual</h3>
+                        <label>Pilih Produk</label>
+                        <select id="s_product" onchange="loadProductHPP()"></select>
+
+                        <div
+                            style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                            <label style="color: #6ee7b7; margin-bottom: 0;">Modal / HPP Terakhir</label>
+                            <div id="s_hpp_display" style="font-size: 1.5rem; font-weight: 700; color: #fff;">Rp 0</div>
+                        </div>
+
+                        <label>Harga Jual Tayang (IDR)</label>
+                        <input type="number" id="s_price" placeholder="Rencana harga jual">
+
+                        <div class="grid-2">
+                            <div>
+                                <label>Admin Fee (%)</label>
+                                <input type="number" id="s_admin_fee" value="8.0" step="0.1">
+                            </div>
+                            <div>
+                                <label>Biaya Packing (IDR)</label>
+                                <input type="number" id="s_packing" value="2000">
+                            </div>
+                        </div>
+
+                        <label>Ads Budget / Pcs (IDR)</label>
+                        <input type="number" id="s_ads" placeholder="Misal: 5000">
+
+                        <button class="btn-primary" onclick="calculateProfit()">ANALISA PROFIT</button>
+                    </div>
+
+                    <div class="glass-card" id="result_panel" style="display: none; text-align: center;">
+                        <h3 id="status_text">Hasil Analisa</h3>
+
+                        <div style="font-size: 3rem; font-weight: 800; margin: 10px 0;" id="r_profit">Rp 0</div>
+                        <div class="badge" id="r_margin_badge"
+                            style="display:inline-block; padding: 5px 15px; border-radius: 20px; background: #333;">
+                            Margin: 0%</div>
+
+                        <div style="margin-top: 30px; text-align: left;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span>Omzet</span>
+                                <span id="r_sell">0</span>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; margin-bottom: 8px; color: var(--danger);">
+                                <span>Total Potongan</span>
+                                <span id="r_cost">0</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; color: var(--text-muted);">
+                                <span>Modal Barang</span>
+                                <span id="r_hpp">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTkd4lYReewE14fragf_w-CtMoSF9eaAs",
+            authDomain: "import-40e84.firebaseapp.com",
+            projectId: "import-40e84",
+            storageBucket: "import-40e84.firebasestorage.app",
+            messagingSenderId: "370082950133",
+            appId: "1:370082950133:web:762215012a4ee395414ebc"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.handleLogin = () => {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+
+            if (email !== "craidk@gmail.com") {
+                document.getElementById('login-error').innerText = "Akses Ditolak: Email tidak terdaftar.";
+                return;
+            }
+
+            signInWithEmailAndPassword(auth, email, pass)
+                .catch((error) => {
+                    document.getElementById('login-error').innerText = "Login Gagal: " + error.message;
+                });
+        };
+
+        window.handleLogout = () => signOut(auth);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('app').style.display = 'flex';
+                initApp();
+            } else {
+                document.getElementById('login-screen').style.display = 'flex';
+                document.getElementById('app').style.display = 'none';
+            }
+        });
+
+        window.toggleSidebar = () => {
+            document.getElementById('sidebar').classList.toggle('open');
+        };
+
+        window.nav = (sectionId) => {
+            document.querySelectorAll('.section').forEach(e => e.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
+
+            document.getElementById(sectionId).classList.add('active');
+            event.currentTarget.classList.add('active');
+
+            document.getElementById('sidebar').classList.remove('open');
+        };
+
+        let productsMap = {};
+
+        function formatIDR(num) {
+            return "Rp " + Math.round(num).toLocaleString('id-ID');
+        }
+
+        function initApp() {
+            onSnapshot(collection(db, "products"), (snap) => {
+                const tbl = document.getElementById('tbl_products').querySelector('tbody');
+                const selI = document.getElementById('i_product');
+                const selS = document.getElementById('s_product');
+
+                tbl.innerHTML = ""; selI.innerHTML = "<option>Pilih Produk</option>"; selS.innerHTML = "<option>Pilih Produk</option>";
+
+                snap.forEach(d => {
+                    const data = d.data();
+                    productsMap[d.id] = data;
+
+                    tbl.innerHTML += `<tr><td>${data.name}<br><small style='color:#94a3b8'>${data.sku}</small></td><td style='text-align:right'>${formatIDR(data.last_hpp || 0)}</td></tr>`;
+
+                    const opt = `<option value="${d.id}">${data.name}</option>`;
+                    selI.innerHTML += opt;
+                    selS.innerHTML += opt;
+                });
+            });
+
+            onSnapshot(collection(db, "suppliers"), snap => {
+                const sel = document.getElementById('i_supplier');
+                sel.innerHTML = "<option>Pilih Supplier</option>";
+                snap.forEach(d => sel.innerHTML += `<option value="${d.data().name}">${d.data().name}</option>`);
+            });
+
+            const q = query(collection(db, "imports"), orderBy("date", "desc"));
+            onSnapshot(q, snap => {
+                const tbl = document.getElementById('tbl_imports');
+                tbl.innerHTML = "";
+                snap.forEach(d => {
+                    const data = d.data();
+                    const pName = productsMap[data.product_id]?.name || 'Unknown';
+                    tbl.innerHTML += `<tr><td>${pName}</td><td>${data.supplier}</td><td>${data.qty}</td><td>${formatIDR(data.hpp_result)}</td></tr>`;
+                });
+            });
+        }
+
+        window.addMaster = async (coll) => {
+            let data = {};
+            if (coll === 'products') {
+                const name = document.getElementById('m_prodName').value;
+                const sku = document.getElementById('m_sku').value;
+                if (!name) return;
+                data = { name, sku, last_hpp: 0 };
+                document.getElementById('m_prodName').value = "";
+            } else {
+                const el = coll === 'suppliers' ? 'm_suppName' : 'm_fwdName';
+                const name = document.getElementById(el).value;
+                if (!name) return;
+                data = { name };
+                document.getElementById(el).value = "";
+            }
+            await addDoc(collection(db, coll), data);
+            alert("Data Saved!");
+        };
+
+        window.saveImport = async () => {
+            const pId = document.getElementById('i_product').value;
+            const supp = document.getElementById('i_supplier').value;
+            const price = parseFloat(document.getElementById('i_price').value) || 0;
+            const rate = parseFloat(document.getElementById('i_rate').value) || 0;
+            const qty = parseFloat(document.getElementById('i_qty').value) || 0;
+            const ship = parseFloat(document.getElementById('i_shipCost').value) || 0;
+            const tax = parseFloat(document.getElementById('i_tax').value) || 0;
+
+            if (qty <= 0) return alert("Cek input quantity!");
+
+            const total = (price * rate * qty) + ship + tax;
+            const hpp = total / qty;
+
+            await addDoc(collection(db, "imports"), {
+                product_id: pId, supplier: supp, qty, hpp_result: hpp, date: serverTimestamp()
+            });
+
+            await updateDoc(doc(db, "products", pId), { last_hpp: hpp });
+            alert("Import Berhasil! HPP Baru: " + formatIDR(hpp));
+        };
+
+        window.loadProductHPP = () => {
+            const id = document.getElementById('s_product').value;
+            const hpp = productsMap[id]?.last_hpp || 0;
+            document.getElementById('s_hpp_display').innerText = formatIDR(hpp);
+            document.getElementById('s_hpp_display').dataset.val = hpp;
+        };
+
+        window.calculateProfit = () => {
+            const hpp = parseFloat(document.getElementById('s_hpp_display').dataset.val) || 0;
+            const sell = parseFloat(document.getElementById('s_price').value) || 0;
+            const admin = parseFloat(document.getElementById('s_admin_fee').value) || 0;
+            const pack = parseFloat(document.getElementById('s_packing').value) || 0;
+            const ads = parseFloat(document.getElementById('s_ads').value) || 0;
+
+            const cuts = (sell * (admin / 100)) + pack + ads;
+            const profit = sell - hpp - cuts;
+            const margin = (profit / sell) * 100;
+
+            const pDiv = document.getElementById('result_panel');
+            const pText = document.getElementById('r_profit');
+
+            pDiv.style.display = 'block';
+            pText.innerText = formatIDR(profit);
+            pText.style.color = profit > 0 ? '#10b981' : '#ef4444';
+
+            document.getElementById('r_margin_badge').innerText = `Margin: ${margin.toFixed(1)}%`;
+            document.getElementById('r_margin_badge').style.background = profit > 0 ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)';
+            document.getElementById('r_margin_badge').style.color = profit > 0 ? '#10b981' : '#ef4444';
+
+            document.getElementById('r_sell').innerText = formatIDR(sell);
+            document.getElementById('r_cost').innerText = "- " + formatIDR(cuts);
+            document.getElementById('r_hpp').innerText = "- " + formatIDR(hpp);
+        };
+
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-prompt').style.display = 'block';
+        });
+
+        window.installPWA = async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    document.getElementById('install-prompt').style.display = 'none';
+                }
+                deferredPrompt = null;
+            }
+        };
+    </script>
+</body>
+
+</html>

@@ -431,6 +431,12 @@
             font-weight: 700;
             cursor: pointer;
         }
+
+        @media screen and (max-width: 768px) {
+            .section.active {
+                margin-top: 40px !important;
+            }
+        }
     </style>
 </head>
 
@@ -614,12 +620,15 @@
                             Margin: 0%</div>
                         <div style="margin-top: 20px; text-align: left; font-size: 0.9rem;">
                             <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span>Omzet</span><span id="r_sell">0</span></div>
+                                <span>Omzet</span><span id="r_sell">0</span>
+                            </div>
                             <div
                                 style="display: flex; justify-content: space-between; margin-bottom: 5px; color: var(--danger);">
-                                <span>Potongan</span><span id="r_cost">0</span></div>
+                                <span>Potongan</span><span id="r_cost">0</span>
+                            </div>
                             <div style="display: flex; justify-content: space-between; color: var(--text-muted);">
-                                <span>Modal</span><span id="r_hpp">0</span></div>
+                                <span>Modal</span><span id="r_hpp">0</span>
+                            </div>
                         </div>
                     </div>
                 </div>

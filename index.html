@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#1e1b4b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2920/2920323.png">
-    <title>Import OS</title>
+    <title>HeyCase</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
         rel="stylesheet">
@@ -18,14 +18,15 @@
 
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --accent: #3b82f6;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
+            /* Tema Gemini (Indigo/Purple) & Cancer (Coral/Warm Orange) Mix */
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --accent-gemini: #818cf8;
+            --accent-cancer: #fb7185;
+            --success: #34d399;
+            --danger: #f87171;
         }
 
         * {
@@ -37,13 +38,14 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #0f172a;
+            background: linear-gradient(135deg, #0f172a 0%, #31103f 50%, #4c1d95 100%);
             color: var(--text-main);
             height: 100vh;
             overflow: hidden;
             position: relative;
         }
 
+        /* Latar belakang Blobs warna Gemini & Cancer */
         .blobs {
             position: fixed;
             top: 0;
@@ -58,17 +60,17 @@
         .blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            animation: move 20s infinite alternate;
+            filter: blur(90px);
+            opacity: 0.5;
+            animation: move 18s infinite alternate;
         }
 
         .b1 {
             top: -10%;
             left: -10%;
-            width: 500px;
-            height: 500px;
-            background: #4f46e5;
+            width: 450px;
+            height: 450px;
+            background: #6366f1;
         }
 
         .b2 {
@@ -76,43 +78,43 @@
             right: -10%;
             width: 400px;
             height: 400px;
-            background: #db2777;
-            animation-delay: -5s;
+            background: #f43f5e;
+            animation-delay: -4s;
         }
 
         .b3 {
-            top: 40%;
-            left: 40%;
+            top: 35%;
+            left: 35%;
             width: 300px;
             height: 300px;
-            background: #0ea5e9;
-            animation-delay: -10s;
+            background: #f97316;
+            animation-delay: -8s;
         }
 
         @keyframes move {
             from {
                 transform: translate(0, 0) scale(1);
             }
-
             to {
-                transform: translate(50px, -50px) scale(1.1);
+                transform: translate(40px, -40px) scale(1.1);
             }
         }
 
         .glass {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 15px;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         #app {
@@ -123,47 +125,49 @@
 
         .sidebar {
             width: 280px;
-            padding: 20px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             border-right: 1px solid var(--glass-border);
             z-index: 100;
-            background: rgba(15, 23, 42, 0.95);
+            background: rgba(15, 23, 42, 0.85);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
             margin-bottom: 30px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            gap: 12px;
+            background: linear-gradient(to right, #818cf8, #fb7185);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-item {
-            padding: 14px;
+            padding: 14px 16px;
             margin-bottom: 8px;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             color: var(--text-muted);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             transition: 0.2s;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.08);
             color: white;
         }
 
         .nav-item.active {
-            background: rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, rgba(129, 140, 248, 0.25), rgba(251, 113, 133, 0.25));
+            color: #fff;
+            border: 1px solid rgba(251, 113, 133, 0.3);
         }
 
         .content {
@@ -174,38 +178,11 @@
             z-index: 1;
         }
 
-        .section {
-            display: none;
-            animation: fadeUp 0.4s ease-out;
-            padding-bottom: 100px;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         h2 {
             font-size: 1.8rem;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             font-weight: 700;
-        }
-
-        h3 {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            color: var(--text-muted);
+            letter-spacing: -0.5px;
         }
 
         label {
@@ -213,39 +190,33 @@
             margin-bottom: 8px;
             font-size: 0.85rem;
             color: var(--text-muted);
+            font-weight: 600;
         }
 
-        input,
-        select,
-        textarea {
+        input {
             width: 100%;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.25);
             border: 1px solid var(--glass-border);
             color: white;
-            padding: 14px;
-            border-radius: 10px;
+            padding: 14px 16px;
+            border-radius: 12px;
             font-family: inherit;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             font-size: 16px;
+            transition: 0.2s;
         }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
+        input:focus {
             outline: none;
-            border-color: var(--accent);
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        select option {
-            background: #1e293b;
-            color: white;
+            border-color: var(--accent-gemini);
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 10px rgba(129, 140, 248, 0.3);
         }
 
         button {
             width: 100%;
             padding: 14px;
-            border-radius: 10px;
+            border-radius: 12px;
             border: none;
             font-weight: 700;
             cursor: pointer;
@@ -254,12 +225,13 @@
             align-items: center;
             gap: 8px;
             font-size: 1rem;
+            transition: transform 0.1s, opacity 0.2s;
         }
 
         .btn-primary {
-            background: linear-gradient(to right, #3b82f6, #2563eb);
+            background: linear-gradient(135deg, #6366f1, #f43f5e);
             color: white;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 4px 20px rgba(244, 63, 94, 0.35);
         }
 
         .btn-primary:active {
@@ -267,56 +239,42 @@
         }
 
         .btn-icon {
-            width: 35px;
-            height: 35px;
+            width: 36px;
+            height: 36px;
             padding: 0;
-            border-radius: 8px;
-            font-size: 1.2rem;
-        }
-
-        .btn-link {
-            background: rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
-        }
-
-        .btn-edit {
-            background: rgba(245, 158, 11, 0.2);
-            color: #fbbf24;
+            border-radius: 10px;
+            font-size: 1.1rem;
         }
 
         .btn-del {
-            background: rgba(239, 68, 68, 0.2);
+            background: rgba(248, 113, 113, 0.15);
             color: #f87171;
+            border: 1px solid rgba(248, 113, 113, 0.3);
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
         }
 
         th {
             text-align: left;
-            padding: 10px;
+            padding: 12px;
             color: var(--text-muted);
             border-bottom: 1px solid var(--glass-border);
+            font-weight: 600;
         }
 
         td {
-            padding: 12px 10px;
+            padding: 14px 12px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -328,7 +286,7 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border);
             margin: -30px -30px 20px -30px;
@@ -337,9 +295,7 @@
 
         .menu-btn {
             font-size: 1.8rem;
-            padding: 5px;
             cursor: pointer;
-            z-index: 60;
         }
 
         #overlay {
@@ -361,6 +317,22 @@
             pointer-events: auto;
         }
 
+        #install-prompt {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #6366f1, #f43f5e);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            display: none;
+            z-index: 3000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
@@ -370,7 +342,7 @@
                 transform: translateX(-100%);
                 width: 80%;
                 max-width: 300px;
-                padding-top: calc(20px + env(safe-area-inset-top));
+                padding-top: calc(24px + env(safe-area-inset-top));
             }
 
             .sidebar.open {
@@ -383,15 +355,11 @@
             }
 
             .content {
-                padding: 0 20px;
+                padding: 20px;
             }
 
             #app {
                 display: block;
-            }
-
-            .grid-2 {
-                grid-template-columns: 1fr;
             }
         }
 
@@ -414,28 +382,18 @@
             max-width: 400px;
             padding: 40px;
             text-align: center;
+            border-radius: 24px;
         }
 
-        #install-prompt {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            display: none;
-            z-index: 3000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        @media screen and (max-width: 768px) {
-            .section.active {
-                margin-top: 40px !important;
-            }
+        .summary-card {
+            background: linear-gradient(135deg, rgba(129, 140, 248, 0.15), rgba(244, 63, 94, 0.15));
+            border: 1px solid rgba(251, 113, 133, 0.3);
+            border-radius: 20px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
     </style>
 </head>
@@ -448,12 +406,12 @@
     </div>
 
     <div id="overlay" onclick="toggleSidebar()"></div>
-    <div id="install-prompt" onclick="installPWA()">📲 Install App</div>
+    <div id="install-prompt" onclick="installPWA()">📲 Install HeyCase</div>
 
     <div id="login-screen" class="glass">
         <div class="login-box glass-card">
-            <div class="logo" style="justify-content: center;"><i class="ri-shield-key-line"></i> IMPORT OS</div>
-            <p style="color: var(--text-muted); margin-bottom: 30px;">Login Administrator</p>
+            <div class="logo" style="justify-content: center;"><i class="ri-shield-key-line"></i> HeyCase</div>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">Login Administrator</p>
             <input type="email" id="email" placeholder="Email">
             <input type="password" id="password" placeholder="Password">
             <button class="btn-primary" onclick="handleLogin()">LOGIN</button>
@@ -462,174 +420,65 @@
     </div>
 
     <div id="app" style="display: none;">
-
         <div class="sidebar glass" id="sidebar">
             <div class="logo">
-                <i class="ri-global-line"></i> IMPORT OS
+                <i class="ri-store-2-line"></i> HeyCase
             </div>
-            <div class="nav-item active" onclick="nav('master')"><i class="ri-database-2-line"></i> Master Data</div>
-            <div class="nav-item" onclick="nav('sourcing')"><i class="ri-file-list-3-line"></i> Draft / Sourcing</div>
-            <div class="nav-item" onclick="nav('import')"><i class="ri-ship-line"></i> Restock / Import</div>
-            <div class="nav-item" onclick="nav('sales')"><i class="ri-shopping-cart-2-line"></i> Simulasi Sales</div>
+            <div class="nav-item active"><i class="ri-money-dollar-circle-line"></i> Catat Modal Awal</div>
             <div style="flex: 1;"></div>
             <div class="nav-item" onclick="handleLogout()"
-                style="color: var(--danger); border: 1px solid rgba(239,68,68,0.2);">
+                style="color: var(--danger); border: 1px solid rgba(248,113,113,0.2);">
                 <i class="ri-logout-box-line"></i> Logout
             </div>
         </div>
 
         <div class="content">
             <div class="mobile-header">
-                <div class="logo" style="margin: 0; font-size: 1.2rem;">IMPORT OS</div>
+                <div class="logo" style="margin: 0; font-size: 1.2rem;">HeyCase</div>
                 <i class="ri-menu-4-line menu-btn" onclick="toggleSidebar()"></i>
             </div>
 
-            <div id="master" class="section active">
-                <h2>Master Data</h2>
-                <div class="grid">
-                    <div class="glass-card">
-                        <h3><i class="ri-add-circle-line"></i> Produk Baru</h3>
-                        <input type="text" id="m_sku" placeholder="SKU (Contoh: VC-001)">
-                        <input type="text" id="m_prodName" placeholder="Nama Barang">
-                        <button class="btn-primary" onclick="addMaster('products')">Simpan Produk</button>
-                    </div>
-                    <div class="glass-card">
-                        <h3>Database</h3>
-                        <div style="max-height: 200px; overflow-y: auto;">
-                            <table id="tbl_products">
-                                <thead>
-                                    <tr>
-                                        <th>Produk</th>
-                                        <th style="text-align:right">HPP</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="glass-card">
-                        <h3>Mitra</h3>
-                        <div class="grid-2">
-                            <div><input type="text" id="m_suppName" placeholder="Supplier"><button class="btn-primary"
-                                    onclick="addMaster('suppliers')">Add</button></div>
-                            <div><input type="text" id="m_fwdName" placeholder="Forwarder"><button class="btn-primary"
-                                    onclick="addMaster('forwarders')">Add</button></div>
-                        </div>
-                    </div>
+            <h2>Pengeluaran & Modal Awal</h2>
+
+            <div class="summary-card glass">
+                <div>
+                    <span style="font-size: 0.85rem; color: var(--text-muted);">Total Modal Dikeluarkan</span>
+                    <div id="total_modal" style="font-size: 1.8rem; font-weight: 800; color: #fff; margin-top: 4px;">Rp 0</div>
+                </div>
+                <div style="font-size: 2.5rem; color: var(--accent-cancer);">
+                    <i class="ri-safe-2-line"></i>
                 </div>
             </div>
 
-            <div id="sourcing" class="section">
-                <h2>Draft Sourcing Alibaba</h2>
-                <div class="grid">
-                    <div class="glass-card">
-                        <h3>Input Draft</h3>
-                        <input type="hidden" id="d_id">
-                        <input type="text" id="d_name" placeholder="Nama Produk">
-                        <input type="text" id="d_link" placeholder="Link Alibaba / 1688">
-                        <textarea id="d_note" rows="3" placeholder="Catatan (Harga, MOQ, Varian)"
-                            style="resize: none;"></textarea>
-                        <button class="btn-primary" id="btn_draft" onclick="saveDraft()">Simpan Draft</button>
-                        <button onclick="cancelEdit()" id="btn_cancel_draft"
-                            style="display:none; background:transparent; color:#94a3b8; margin-top:10px;">Batal
-                            Edit</button>
-                    </div>
-                    <div class="glass-card">
-                        <h3>List Wishlist</h3>
-                        <div style="overflow-x: auto;">
-                            <table id="tbl_drafts" style="min-width: 500px;">
-                                <thead>
-                                    <tr>
-                                        <th>Produk</th>
-                                        <th>Link</th>
-                                        <th>Note</th>
-                                        <th style="text-align:center">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="grid">
+                <div class="glass-card">
+                    <h3><i class="ri-add-circle-line"></i> Tambah Pengeluaran</h3>
+                    <label>Untuk (Keperluan / Keterangan)</label>
+                    <input type="text" id="m_untuk" placeholder="Contoh: Beli Bahan Baku / Sewa Tempat">
+                    
+                    <label>Jumlah Uang (Rp)</label>
+                    <input type="number" id="m_uang" placeholder="Contoh: 1500000">
+                    
+                    <label>Tanggal</label>
+                    <input type="date" id="m_tanggal">
 
-            <div id="import" class="section">
-                <h2>Restock Import</h2>
-                <div class="glass-card">
-                    <div class="grid">
-                        <div><label>Produk</label><select id="i_product"></select></div>
-                        <div><label>Supplier</label><select id="i_supplier"></select></div>
-                    </div>
-                    <div style="margin: 15px 0; border-top: 1px solid var(--glass-border);"></div>
-                    <div class="grid">
-                        <div><label>Harga (Asing)</label><input type="number" id="i_price" placeholder="RMB / USD">
-                        </div>
-                        <div><label>Kurs IDR</label><input type="number" id="i_rate" value="2300"></div>
-                        <div><label>Qty</label><input type="number" id="i_qty"></div>
-                    </div>
-                    <div class="grid-2">
-                        <div><label>Ongkir Total (IDR)</label><input type="number" id="i_shipCost"></div>
-                        <div><label>Pajak/Lainnya (IDR)</label><input type="number" id="i_tax" value="0"></div>
-                    </div>
-                    <button class="btn-primary" onclick="saveImport()"><i class="ri-calculator-fill"></i> HITUNG &
-                        UPDATE</button>
+                    <button class="btn-primary" onclick="saveModal()">Simpan Pengeluaran</button>
                 </div>
+
                 <div class="glass-card">
-                    <h3>Riwayat Terakhir</h3>
-                    <div style="overflow-x: auto;">
-                        <table style="min-width: 500px;">
+                    <h3>Riwayat Pengeluaran Modal</h3>
+                    <div style="overflow-x: auto; max-height: 400px;">
+                        <table>
                             <thead>
                                 <tr>
-                                    <th>Produk</th>
-                                    <th>Supplier</th>
-                                    <th>Qty</th>
-                                    <th>HPP</th>
+                                    <th>Tanggal & Keperluan</th>
+                                    <th style="text-align:right">Jumlah (Rp)</th>
+                                    <th style="text-align:center">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl_imports"></tbody>
+                            <tbody id="tbl_modal">
+                            </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-
-            <div id="sales" class="section">
-                <h2>Simulasi Sales</h2>
-                <div class="grid">
-                    <div class="glass-card">
-                        <h3>Parameter</h3>
-                        <label>Produk</label><select id="s_product" onchange="loadProductHPP()"></select>
-                        <div
-                            style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                            <label style="color: #6ee7b7; margin:0;">HPP Terakhir</label>
-                            <div id="s_hpp_display" style="font-size: 1.5rem; font-weight: 700; color: #fff;">Rp 0</div>
-                        </div>
-                        <label>Harga Jual (IDR)</label><input type="number" id="s_price">
-                        <div class="grid-2">
-                            <div><label>Admin Fee (%)</label><input type="number" id="s_admin_fee" value="8.0"
-                                    step="0.1"></div>
-                            <div><label>Packing (IDR)</label><input type="number" id="s_packing" value="2000"></div>
-                        </div>
-                        <label>Ads Budget (IDR)</label><input type="number" id="s_ads" placeholder="Ex: 5000">
-                        <button class="btn-primary" onclick="calculateProfit()">ANALISA PROFIT</button>
-                    </div>
-                    <div class="glass-card" id="result_panel" style="display: none; text-align: center;">
-                        <h3>Hasil</h3>
-                        <div style="font-size: 2.5rem; font-weight: 800; margin: 10px 0;" id="r_profit">Rp 0</div>
-                        <div class="badge" id="r_margin_badge"
-                            style="display:inline-block; padding: 5px 15px; border-radius: 20px; background: #333;">
-                            Margin: 0%</div>
-                        <div style="margin-top: 20px; text-align: left; font-size: 0.9rem;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span>Omzet</span><span id="r_sell">0</span>
-                            </div>
-                            <div
-                                style="display: flex; justify-content: space-between; margin-bottom: 5px; color: var(--danger);">
-                                <span>Potongan</span><span id="r_cost">0</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; color: var(--text-muted);">
-                                <span>Modal</span><span id="r_hpp">0</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -639,7 +488,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCTkd4lYReewE14fragf_w-CtMoSF9eaAs",
@@ -654,20 +503,41 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // Registrasi Service Worker untuk PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(() => console.log("Service Worker Terdaftar!"))
+                    .catch((err) => console.log("Gagal daftar SW:", err));
+            });
+        }
+
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-prompt').style.display = 'block';
+        });
+
+        window.installPWA = async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    document.getElementById('install-prompt').style.display = 'none';
+                }
+                deferredPrompt = null;
+            }
+        };
+
+        // Set default tanggal hari ini pada form
+        document.getElementById('m_tanggal').valueAsDate = new Date();
+
         window.toggleSidebar = () => {
             const sb = document.getElementById('sidebar');
             const ov = document.getElementById('overlay');
             sb.classList.toggle('open');
             ov.classList.toggle('active');
-        };
-
-        window.nav = (sectionId) => {
-            document.querySelectorAll('.section').forEach(e => e.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-            event.currentTarget.classList.add('active');
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('overlay').classList.remove('active');
         };
 
         window.handleLogin = () => {
@@ -696,195 +566,79 @@
             }
         });
 
-        let productsMap = {};
         const formatIDR = (num) => "Rp " + Math.round(num).toLocaleString('id-ID');
 
         function initApp() {
-            onSnapshot(collection(db, "products"), (snap) => {
-                const tbl = document.getElementById('tbl_products').querySelector('tbody');
-                const selI = document.getElementById('i_product');
-                const selS = document.getElementById('s_product');
-                tbl.innerHTML = ""; selI.innerHTML = "<option>Pilih Produk</option>"; selS.innerHTML = "<option>Pilih Produk</option>";
+            const q = query(collection(db, "modal_awal"), orderBy("tanggal", "desc"));
+            onSnapshot(q, (snap) => {
+                const tbl = document.getElementById('tbl_modal');
+                tbl.innerHTML = "";
+                let grandTotal = 0;
+
+                if (snap.empty) {
+                    tbl.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted); padding:20px;">Belum ada data pengeluaran modal.</td></tr>`;
+                    document.getElementById('total_modal').innerText = formatIDR(0);
+                    return;
+                }
+
                 snap.forEach(d => {
                     const data = d.data();
-                    productsMap[d.id] = data;
-                    tbl.innerHTML += `<tr><td>${data.name}<br><small style='color:#94a3b8'>${data.sku}</small></td><td style='text-align:right'>${formatIDR(data.last_hpp || 0)}</td></tr>`;
-                    const opt = `<option value="${d.id}">${data.name}</option>`;
-                    selI.innerHTML += opt; selS.innerHTML += opt;
-                });
-            });
+                    const nominal = parseFloat(data.uang) || 0;
+                    grandTotal += nominal;
 
-            onSnapshot(collection(db, "suppliers"), snap => {
-                const sel = document.getElementById('i_supplier');
-                sel.innerHTML = "<option>Pilih Supplier</option>";
-                snap.forEach(d => sel.innerHTML += `<option value="${d.data().name}">${d.data().name}</option>`);
-            });
-
-            const q = query(collection(db, "imports"), orderBy("date", "desc"));
-            onSnapshot(q, snap => {
-                const tbl = document.getElementById('tbl_imports');
-                tbl.innerHTML = "";
-                snap.forEach(d => {
-                    const data = d.data();
-                    const pName = productsMap[data.product_id]?.name || 'Unknown';
-                    tbl.innerHTML += `<tr><td>${pName}</td><td>${data.supplier}</td><td>${data.qty}</td><td>${formatIDR(data.hpp_result)}</td></tr>`;
-                });
-            });
-
-            // SOURCING DRAFTS LISTENER
-            const qDrafts = query(collection(db, "sourcing_drafts"), orderBy("created_at", "desc"));
-            onSnapshot(qDrafts, (snap) => {
-                const tbl = document.getElementById('tbl_drafts').querySelector('tbody');
-                tbl.innerHTML = "";
-                snap.forEach(doc => {
-                    const d = doc.data();
                     tbl.innerHTML += `
                         <tr>
-                            <td><b>${d.name}</b></td>
-                            <td><a href="${d.link}" target="_blank" class="btn-icon btn-link" style="display:inline-flex; align-items:center; justify-content:center; text-decoration:none;"><i class="ri-external-link-line"></i></a></td>
-                            <td style="font-size:0.85rem; opacity:0.8;">${d.note || '-'}</td>
+                            <td>
+                                <b>${data.untuk}</b>
+                                <br><small style="color:var(--text-muted);">${data.tanggal}</small>
+                            </td>
+                            <td style="text-align:right; font-weight:600; color:#34d399;">${formatIDR(nominal)}</td>
                             <td style="text-align:center;">
-                                <div style="display:flex; gap:5px; justify-content:center;">
-                                    <button class="btn-icon btn-edit" onclick="editDraft('${doc.id}', '${d.name}', '${d.link}', '${d.note || ''}')"><i class="ri-pencil-line"></i></button>
-                                    <button class="btn-icon btn-del" onclick="deleteDraft('${doc.id}')"><i class="ri-delete-bin-line"></i></button>
-                                </div>
+                                <button class="btn-icon btn-del" onclick="deleteModal('${d.id}')">
+                                    <i class="ri-delete-bin-line"></i>
+                                </button>
                             </td>
                         </tr>
                     `;
                 });
+
+                document.getElementById('total_modal').innerText = formatIDR(grandTotal);
             });
         }
 
-        window.addMaster = async (coll) => {
-            let data = {};
-            if (coll === 'products') {
-                const name = document.getElementById('m_prodName').value;
-                const sku = document.getElementById('m_sku').value;
-                if (!name) return;
-                data = { name, sku, last_hpp: 0 };
-                document.getElementById('m_prodName').value = "";
-            } else {
-                const el = coll === 'suppliers' ? 'm_suppName' : 'm_fwdName';
-                const name = document.getElementById(el).value;
-                if (!name) return;
-                data = { name };
-                document.getElementById(el).value = "";
-            }
-            await addDoc(collection(db, coll), data);
-            alert("Saved!");
-        };
+        window.saveModal = async () => {
+            const untuk = document.getElementById('m_untuk').value.trim();
+            const uang = parseFloat(document.getElementById('m_uang').value);
+            const tanggal = document.getElementById('m_tanggal').value;
 
-        window.saveImport = async () => {
-            const pId = document.getElementById('i_product').value;
-            const supp = document.getElementById('i_supplier').value;
-            const price = parseFloat(document.getElementById('i_price').value) || 0;
-            const rate = parseFloat(document.getElementById('i_rate').value) || 0;
-            const qty = parseFloat(document.getElementById('i_qty').value) || 0;
-            const ship = parseFloat(document.getElementById('i_shipCost').value) || 0;
-            const tax = parseFloat(document.getElementById('i_tax').value) || 0;
+            if (!untuk) return alert("Kolom 'Untuk' wajib diisi!");
+            if (isNaN(uang) || uang <= 0) return alert("Masukkan jumlah uang yang valid!");
+            if (!tanggal) return alert("Tanggal wajib diisi!");
 
-            if (qty <= 0) return alert("Cek Qty");
+            try {
+                await addDoc(collection(db, "modal_awal"), {
+                    untuk: untuk,
+                    uang: uang,
+                    tanggal: tanggal
+                });
 
-            const total = (price * rate * qty) + ship + tax;
-            const hpp = total / qty;
-
-            await addDoc(collection(db, "imports"), { product_id: pId, supplier: supp, qty, hpp_result: hpp, date: serverTimestamp() });
-            await updateDoc(doc(db, "products", pId), { last_hpp: hpp });
-            alert("HPP Baru: " + formatIDR(hpp));
-        };
-
-        // --- SOURCING CRUD ---
-        window.saveDraft = async () => {
-            const id = document.getElementById('d_id').value;
-            const name = document.getElementById('d_name').value;
-            const link = document.getElementById('d_link').value;
-            const note = document.getElementById('d_note').value;
-
-            if (!name) return alert("Nama Produk Wajib");
-
-            const data = { name, link, note, created_at: serverTimestamp() };
-
-            if (id) {
-                // Update
-                delete data.created_at; // keep original timestamp or update logic
-                await updateDoc(doc(db, "sourcing_drafts", id), data);
-                alert("Updated!");
-            } else {
-                // Create
-                await addDoc(collection(db, "sourcing_drafts"), data);
-                alert("Draft Saved!");
-            }
-            window.cancelEdit();
-        };
-
-        window.editDraft = (id, name, link, note) => {
-            document.getElementById('d_id').value = id;
-            document.getElementById('d_name').value = name;
-            document.getElementById('d_link').value = link;
-            document.getElementById('d_note').value = note;
-
-            document.getElementById('btn_draft').innerText = "Update Draft";
-            document.getElementById('btn_cancel_draft').style.display = "block";
-            // Scroll to top mobile
-            document.getElementById('sourcing').scrollIntoView({ behavior: "smooth" });
-        };
-
-        window.deleteDraft = async (id) => {
-            if (confirm("Hapus draft ini?")) {
-                await deleteDoc(doc(db, "sourcing_drafts", id));
+                document.getElementById('m_untuk').value = "";
+                document.getElementById('m_uang').value = "";
+                document.getElementById('m_tanggal').valueAsDate = new Date();
+                
+                alert("Pengeluaran modal berhasil disimpan!");
+            } catch (error) {
+                alert("Gagal menyimpan: " + error.message);
             }
         };
 
-        window.cancelEdit = () => {
-            document.getElementById('d_id').value = "";
-            document.getElementById('d_name').value = "";
-            document.getElementById('d_link').value = "";
-            document.getElementById('d_note').value = "";
-            document.getElementById('btn_draft').innerText = "Simpan Draft";
-            document.getElementById('btn_cancel_draft').style.display = "none";
-        };
-
-        window.loadProductHPP = () => {
-            const id = document.getElementById('s_product').value;
-            const hpp = productsMap[id]?.last_hpp || 0;
-            document.getElementById('s_hpp_display').innerText = formatIDR(hpp);
-            document.getElementById('s_hpp_display').dataset.val = hpp;
-        };
-
-        window.calculateProfit = () => {
-            const hpp = parseFloat(document.getElementById('s_hpp_display').dataset.val) || 0;
-            const sell = parseFloat(document.getElementById('s_price').value) || 0;
-            const admin = parseFloat(document.getElementById('s_admin_fee').value) || 0;
-            const pack = parseFloat(document.getElementById('s_packing').value) || 0;
-            const ads = parseFloat(document.getElementById('s_ads').value) || 0;
-
-            const cuts = (sell * (admin / 100)) + pack + ads;
-            const profit = sell - hpp - cuts;
-            const margin = (profit / sell) * 100;
-
-            const pDiv = document.getElementById('result_panel');
-            const pText = document.getElementById('r_profit');
-
-            pDiv.style.display = 'block';
-            pText.innerText = formatIDR(profit);
-            pText.style.color = profit > 0 ? '#10b981' : '#ef4444';
-            document.getElementById('r_margin_badge').innerText = `Margin: ${margin.toFixed(1)}%`;
-            document.getElementById('r_sell').innerText = formatIDR(sell);
-            document.getElementById('r_cost').innerText = "- " + formatIDR(cuts);
-            document.getElementById('r_hpp').innerText = "- " + formatIDR(hpp);
-        };
-
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault(); deferredPrompt = e;
-            document.getElementById('install-prompt').style.display = 'block';
-        });
-        window.installPWA = async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') document.getElementById('install-prompt').style.display = 'none';
-                deferredPrompt = null;
+        window.deleteModal = async (id) => {
+            if (confirm("Hapus catatan pengeluaran ini?")) {
+                try {
+                    await deleteDoc(doc(db, "modal_awal", id));
+                } catch (error) {
+                    alert("Gagal menghapus: " + error.message);
+                }
             }
         };
     </script>

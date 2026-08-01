@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -17,9 +16,28 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
     <style>
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 16px;
+            background: 
+                radial-gradient(circle at top left, #312e81 0%, transparent 35%),
+                radial-gradient(circle at bottom right, #be185d 0%, transparent 35%),
+                #090d16;
+            color: #ffffff;
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.06);
-            --glass-border: rgba(255, 255, 255, 0.12);
+            --bg-card: rgba(30, 41, 59, 0.85);
+            --border-card: rgba(255, 255, 255, 0.12);
             --text-main: #ffffff;
             --text-muted: #94a3b8;
             --accent-gemini: #818cf8;
@@ -35,78 +53,30 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #090d16 0%, #1f0b2d 50%, #31104a 100%);
-            color: var(--text-main);
-            min-height: 100vh;
-            width: 100%;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Latar belakang Blobs */
-        .blobs {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.4;
-            animation: move 18s infinite alternate;
-        }
-
-        .b1 {
-            top: -10%;
-            left: -10%;
-            width: 320px;
-            height: 320px;
-            background: #6366f1;
-        }
-
-        .b2 {
-            bottom: -10%;
-            right: -10%;
-            width: 320px;
-            height: 320px;
-            background: #f43f5e;
-            animation-delay: -4s;
-        }
-
-        @keyframes move {
+        @keyframes fadeUp {
             from {
-                transform: translate(0, 0) scale(1);
+                opacity: 0;
+                transform: translateY(20px);
             }
             to {
-                transform: translate(25px, -25px) scale(1.1);
+                opacity: 1;
+                transform: translateY(0);
             }
-        }
-
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02));
-            border: 1px solid var(--glass-border);
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
             border-radius: 22px;
-            padding: 22px;
+            padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, .25),
+                0 1px 0 rgba(255, 255, 255, .05) inset;
             width: 100%;
+            min-height: 100%;
+            overflow: hidden;
+            animation: fadeUp 0.35s ease;
         }
 
         #app {
@@ -115,17 +85,19 @@
             width: 100%;
         }
 
-        /* Sidebar Desktop */
+        /* Sidebar Desktop Fixed */
         .sidebar {
             width: 260px;
             min-width: 260px;
             padding: 24px;
             display: flex;
             flex-direction: column;
-            border-right: 1px solid var(--glass-border);
-            background: rgba(15, 23, 42, 0.95);
-            position: sticky;
+            border-right: 1px solid var(--border-card);
+            background: #0f172a;
+            position: fixed;
+            left: 0;
             top: 0;
+            bottom: 0;
             height: 100vh;
             z-index: 100;
         }
@@ -171,15 +143,15 @@
         /* Content Area */
         .content {
             flex: 1;
+            margin-left: 260px;
             padding: 24px;
-            max-width: 100%;
             overflow-x: hidden;
-            padding-bottom: 60px;
+            padding-bottom: calc(60px + env(safe-area-inset-bottom));
         }
 
         h2 {
-            font-size: 1.5rem;
-            margin-bottom: 18px;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
@@ -187,33 +159,53 @@
         label {
             display: block;
             margin-bottom: 8px;
-            font-size: 0.88rem;
-            color: var(--text-muted);
+            font-size: 0.9rem;
+            color: #cbd5e1;
             font-weight: 600;
+        }
+
+        input, button {
+            font-size: 16px;
         }
 
         input {
             width: 100%;
-            background: rgba(0, 0, 0, 0.35);
-            border: 1px solid var(--glass-border);
+            background: #0b0f19;
+            border: 1px solid var(--border-card);
             color: white;
             padding: 14px 16px;
             border-radius: 14px;
             font-family: inherit;
             margin-bottom: 18px;
-            font-size: 16px;
             transition: 0.2s;
         }
 
+        input[type="date"] {
+            appearance: none;
+            -webkit-appearance: none;
+            min-height: 52px;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            appearance: textfield;
+            -moz-appearance: textfield;
+        }
+
         input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
+            color: #64748b;
         }
 
         input:focus {
             outline: none;
             border-color: var(--accent-gemini);
-            background: rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0 12px rgba(129, 140, 248, 0.3);
+            background: #0f172a;
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15);
         }
 
         button {
@@ -227,18 +219,27 @@
             justify-content: center;
             align-items: center;
             gap: 8px;
-            font-size: 1rem;
-            transition: transform 0.1s, opacity 0.2s;
+            transition: transform 0.1s, box-shadow 0.2s;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #6366f1, #f43f5e);
             color: white;
             box-shadow: 0 6px 20px rgba(244, 63, 94, 0.35);
-            margin-top: 4px;
         }
 
-        .btn-primary:active {
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-primary:active:not(:disabled) {
             transform: scale(0.97);
         }
 
@@ -261,7 +262,7 @@
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            gap: 20px;
             align-items: start;
         }
 
@@ -289,7 +290,7 @@
             text-align: left;
             padding: 10px 8px;
             color: var(--text-muted);
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--border-card);
             font-weight: 600;
             white-space: nowrap;
         }
@@ -300,7 +301,7 @@
             word-break: break-word;
         }
 
-        /* Mobile Glass Navbar Atas */
+        /* Mobile Header */
         .mobile-header {
             display: none;
             align-items: center;
@@ -310,10 +311,10 @@
             top: 0;
             z-index: 90;
             background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            margin: -24px -24px 0px -24px; /* Margin bawah disesuaikan agar ada jarak dengan judul */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-card);
+            margin: 0 -20px 20px;
             padding-top: max(16px, env(safe-area-inset-top));
         }
 
@@ -342,7 +343,7 @@
             cursor: pointer;
         }
 
-        /* Slide-out Menu Drawer untuk Mobile */
+        /* Mobile Drawer */
         .mobile-drawer {
             position: fixed;
             top: 0;
@@ -350,10 +351,8 @@
             width: 75%;
             max-width: 280px;
             height: 100vh;
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-left: 1px solid var(--glass-border);
+            background: #0f172a;
+            border-left: 1px solid var(--border-card);
             z-index: 110;
             padding: 30px 20px;
             display: flex;
@@ -372,13 +371,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.65);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 105;
             opacity: 0;
             pointer-events: none;
             transition: 0.3s;
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
         }
 
         #overlay.active {
@@ -404,34 +401,126 @@
             white-space: nowrap;
         }
 
-        /* Penyesuaian Khusus HP / iPhone 15 dengan Margin Top Elegan */
+        /* Loading Screen Style */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #090d16;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #cbd5e1;
+            font-weight: 600;
+            gap: 12px;
+            transition: opacity 0.3s ease;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--accent-gemini);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast Modern Pengganti Alert */
+        #toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid var(--border-card);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 4000;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        #toast-container.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Modal Konfirmasi Modern Pengganti Confirm */
+        #custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 4000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        #custom-modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: #0f172a;
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 24px;
+            width: 100%;
+            max-width: 340px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            transform: scale(0.9);
+            transition: transform 0.25s ease;
+        }
+
+        #custom-modal.show .modal-box {
+            transform: scale(1);
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 display: none;
             }
 
+            .content {
+                margin-left: 0;
+                padding: 20px;
+                padding-bottom: calc(60px + env(safe-area-inset-bottom));
+            }
+
             .mobile-header {
                 display: flex;
-            }
-
-            .content {
-                padding: 0 20px;
-                padding-bottom: calc(50px + env(safe-area-inset-bottom));
-            }
-
-            /* Memberikan jarak atas yang pas dan elegan di bawah header mobile */
-            .content h2:first-of-type {
-                margin-top: 40px;
+                margin: 0 -20px 20px;
             }
 
             h2 {
                 font-size: 1.35rem;
-                margin-bottom: 16px;
-            }
-
-            .glass-card {
-                padding: 18px;
-                border-radius: 20px;
                 margin-bottom: 16px;
             }
         }
@@ -443,7 +532,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #0f172a;
+            background: #090d16;
             z-index: 2000;
             display: flex;
             justify-content: center;
@@ -460,11 +549,16 @@
         }
 
         .summary-card {
-            background: linear-gradient(135deg, rgba(129, 140, 248, 0.15), rgba(244, 63, 94, 0.15));
-            border: 1px solid rgba(251, 113, 133, 0.3);
+            background: linear-gradient(
+                135deg,
+                rgba(99, 102, 241, .18),
+                rgba(244, 63, 94, .18)
+            );
+            border: 1px solid rgba(255, 255, 255, .08);
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 20px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, .35);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -473,15 +567,34 @@
 </head>
 
 <body>
-    <div class="blobs">
-        <div class="blob b1"></div>
-        <div class="blob b2"></div>
+    <div id="loading">
+        <div class="spinner"></div>
+        <span>Memuat data HeyCase...</span>
+    </div>
+
+    <div id="toast-container">
+        <i class="ri-checkbox-circle-fill" style="color: var(--success); font-size: 1.2rem;"></i>
+        <span id="toast-msg">Berhasil!</span>
+    </div>
+
+    <div id="custom-modal">
+        <div class="modal-box">
+            <div style="font-size: 2.5rem; color: var(--danger); margin-bottom: 12px;">
+                <i class="ri-error-warning-line"></i>
+            </div>
+            <h3 style="margin-bottom: 8px; font-size: 1.1rem;">Konfirmasi Hapus</h3>
+            <p id="modal-text" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Hapus catatan pengeluaran ini?</p>
+            <div style="display: flex; gap: 10px;">
+                <button style="background: rgba(255,255,255,0.08); color: white;" onclick="closeModal(false)">Batal</button>
+                <button class="btn-primary" style="background: var(--danger);" id="modal-confirm-btn">Ya, Hapus</button>
+            </div>
+        </div>
     </div>
 
     <div id="overlay" onclick="toggleDrawer()"></div>
     <div id="install-prompt" onclick="installPWA()">📲 Install HeyCase</div>
 
-    <div class="mobile-drawer glass" id="mobileDrawer">
+    <div class="mobile-drawer" id="mobileDrawer">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
             <div class="logo" style="margin: 0;"><i class="ri-store-2-line"></i> HeyCase</div>
             <i class="ri-close-line" style="font-size: 1.5rem; cursor: pointer; color: var(--text-muted);" onclick="toggleDrawer()"></i>
@@ -493,7 +606,7 @@
         </div>
     </div>
 
-    <div id="login-screen" class="glass">
+    <div id="login-screen">
         <div class="login-box glass-card">
             <div class="logo" style="justify-content: center; margin-bottom: 10px;"><i class="ri-shield-key-line"></i> HeyCase</div>
             <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.9rem;">Login Administrator</p>
@@ -505,7 +618,7 @@
     </div>
 
     <div id="app" style="display: none;">
-        <div class="sidebar glass" id="sidebar">
+        <div class="sidebar" id="sidebar">
             <div class="logo">
                 <i class="ri-store-2-line"></i> HeyCase
             </div>
@@ -529,10 +642,10 @@
 
             <h2>Pengeluaran & Modal Awal</h2>
 
-            <div class="summary-card glass">
+            <div class="summary-card">
                 <div>
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">Total Modal Dikeluarkan</span>
-                    <div id="total_modal" style="font-size: 1.5rem; font-weight: 800; color: #fff; margin-top: 2px;">Rp 0</div>
+                    <span style="font-size: 0.85rem; color: #cbd5e1; font-weight: 500;">Total Modal Dikeluarkan</span>
+                    <div id="total_modal" style="font-size: 1.6rem; font-weight: 800; color: #ffffff; margin-top: 4px;">Rp 0</div>
                 </div>
                 <div style="font-size: 2.2rem; color: var(--accent-cancer);">
                     <i class="ri-safe-2-line"></i>
@@ -551,12 +664,12 @@
                     <label>Tanggal</label>
                     <input type="date" id="m_tanggal">
 
-                    <button class="btn-primary" onclick="saveModal()">Simpan Pengeluaran</button>
+                    <button class="btn-primary" id="btn-save" onclick="saveModal()">Simpan Pengeluaran</button>
                 </div>
 
                 <div class="glass-card">
                     <h3 style="margin-bottom: 16px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;"><i class="ri-history-line" style="color: var(--accent-cancer);"></i> Riwayat Pengeluaran Modal</h3>
-                    <div class="table-responsive" style="max-height: 380px;">
+                    <div class="table-responsive" style="max-height: 60vh;">
                         <table>
                             <thead>
                                 <tr>
@@ -577,7 +690,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, query, orderBy, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCTkd4lYReewE14fragf_w-CtMoSF9eaAs",
@@ -592,7 +705,15 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Registrasi Service Worker untuk PWA
+        // Aktifkan Offline Persistence Firestore
+        enableIndexedDbPersistence(db).catch((err) => {
+            if (err.code == 'failed-precondition') {
+                console.log("Persistence gagal karena banyak tab terbuka.");
+            } else if (err.code == 'unimplemented') {
+                console.log("Browser tidak mendukung persistence.");
+            }
+        });
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -619,8 +740,43 @@
             }
         };
 
-        // Set default tanggal hari ini pada form
-        document.getElementById('m_tanggal').valueAsDate = new Date();
+        // Universal Tanggal Hari Ini (Safari Safe)
+        const tanggalInput = document.getElementById('m_tanggal');
+        if (tanggalInput) {
+            tanggalInput.value = new Date().toISOString().split("T")[0];
+        }
+
+        // Fungsi Toast Notification
+        window.showToast = (msg) => {
+            const toast = document.getElementById('toast-container');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        };
+
+        // Fungsi Modal Konfirmasi Custom
+        let resolveModalCallback = null;
+        window.showConfirmModal = (text) => {
+            return new Promise((resolve) => {
+                document.getElementById('modal-text').innerText = text;
+                const modal = document.getElementById('custom-modal');
+                modal.classList.add('show');
+                resolveModalCallback = resolve;
+            });
+        };
+
+        window.closeModal = (result) => {
+            const modal = document.getElementById('custom-modal');
+            modal.classList.remove('show');
+            if (resolveModalCallback) {
+                resolveModalCallback(result);
+                resolveModalCallback = null;
+            }
+        };
+
+        document.getElementById('modal-confirm-btn').onclick = () => closeModal(true);
 
         window.toggleDrawer = () => {
             const drawer = document.getElementById('mobileDrawer');
@@ -630,18 +786,48 @@
         };
 
         window.handleLogin = () => {
-            const email = document.getElementById('email').value;
+            const email = document.getElementById('email').value.trim();
             const pass = document.getElementById('password').value;
-            if (email !== "craidk@gmail.com") {
-                document.getElementById('login-error').innerText = "Akses Ditolak: Email tidak terdaftar.";
+            const errEl = document.getElementById('login-error');
+            errEl.innerText = "";
+
+            if (!email || !pass) {
+                errEl.innerText = "Email dan password wajib diisi.";
                 return;
             }
+
             signInWithEmailAndPassword(auth, email, pass).catch((error) => {
-                document.getElementById('login-error').innerText = "Gagal: " + error.message;
+                let msg = "Terjadi kesalahan sistem.";
+                switch (error.code) {
+                    case "auth/wrong-password":
+                        msg = "Password salah.";
+                        break;
+                    case "auth/user-not-found":
+                    case "auth/invalid-email":
+                        msg = "Email tidak ditemukan atau tidak valid.";
+                        break;
+                    case "auth/network-request-failed":
+                        msg = "Koneksi internet bermasalah.";
+                        break;
+                    case "auth/invalid-credential":
+                        msg = "Kredensial login tidak valid.";
+                        break;
+                }
+                errEl.innerText = msg;
             });
         };
 
         window.handleLogout = () => signOut(auth);
+
+        let unsubscribe = null;
+
+        const hideLoading = () => {
+            const loadingEl = document.getElementById('loading');
+            if (loadingEl) {
+                loadingEl.style.opacity = '0';
+                setTimeout(() => loadingEl.style.display = 'none', 300);
+            }
+        };
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -649,23 +835,33 @@
                 document.getElementById('app').style.display = 'flex';
                 initApp();
             } else {
+                if (unsubscribe) {
+                    unsubscribe();
+                    unsubscribe = null;
+                }
                 document.getElementById('login-screen').style.display = 'flex';
                 document.getElementById('app').style.display = 'none';
+                hideLoading();
             }
         });
 
         const formatIDR = (num) => "Rp " + Math.round(num).toLocaleString('id-ID');
 
         function initApp() {
+            if (unsubscribe) {
+                unsubscribe();
+            }
+
             const q = query(collection(db, "modal_awal"), orderBy("tanggal", "desc"));
-            onSnapshot(q, (snap) => {
+            unsubscribe = onSnapshot(q, (snap) => {
                 const tbl = document.getElementById('tbl_modal');
-                tbl.innerHTML = "";
+                let html = "";
                 let grandTotal = 0;
 
                 if (snap.empty) {
                     tbl.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted); padding:20px;">Belum ada data pengeluaran modal.</td></tr>`;
                     document.getElementById('total_modal').innerText = formatIDR(0);
+                    hideLoading();
                     return;
                 }
 
@@ -674,7 +870,7 @@
                     const nominal = parseFloat(data.uang) || 0;
                     grandTotal += nominal;
 
-                    tbl.innerHTML += `
+                    html += `
                         <tr>
                             <td>
                                 <strong style="font-size: 0.95rem;">${data.untuk}</strong>
@@ -690,18 +886,26 @@
                     `;
                 });
 
+                tbl.innerHTML = html;
                 document.getElementById('total_modal').innerText = formatIDR(grandTotal);
+                hideLoading();
+            }, (error) => {
+                hideLoading();
+                showToast("Gagal menyinkronkan data.");
             });
         }
 
         window.saveModal = async () => {
+            const btn = document.getElementById('btn-save');
             const untuk = document.getElementById('m_untuk').value.trim();
             const uang = parseFloat(document.getElementById('m_uang').value);
             const tanggal = document.getElementById('m_tanggal').value;
 
-            if (!untuk) return alert("Kolom 'Untuk' wajib diisi!");
-            if (isNaN(uang) || uang <= 0) return alert("Masukkan jumlah uang yang valid!");
-            if (!tanggal) return alert("Tanggal wajib diisi!");
+            if (!untuk) return showToast("Kolom 'Untuk' wajib diisi!");
+            if (isNaN(uang) || uang <= 0) return showToast("Masukkan jumlah uang yang valid!");
+            if (!tanggal) return showToast("Tanggal wajib diisi!");
+
+            btn.disabled = true;
 
             try {
                 await addDoc(collection(db, "modal_awal"), {
@@ -712,20 +916,26 @@
 
                 document.getElementById('m_untuk').value = "";
                 document.getElementById('m_uang').value = "";
-                document.getElementById('m_tanggal').valueAsDate = new Date();
+                if (tanggalInput) {
+                    tanggalInput.value = new Date().toISOString().split("T")[0];
+                }
                 
-                alert("Pengeluaran modal berhasil disimpan!");
+                showToast("Pengeluaran berhasil disimpan!");
             } catch (error) {
-                alert("Gagal menyimpan: " + error.message);
+                showToast("Gagal menyimpan data.");
+            } finally {
+                btn.disabled = false;
             }
         };
 
         window.deleteModal = async (id) => {
-            if (confirm("Hapus catatan pengeluaran ini?")) {
+            const confirmed = await showConfirmModal("Hapus catatan pengeluaran ini?");
+            if (confirmed) {
                 try {
                     await deleteDoc(doc(db, "modal_awal", id));
+                    showToast("Catatan berhasil dihapus.");
                 } catch (error) {
-                    alert("Gagal menghapus: " + error.message);
+                    showToast("Gagal menghapus data.");
                 }
             }
         };

@@ -12,16 +12,16 @@
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2920/2920323.png">
     <title>HeyCase</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --text-main: #f8fafc;
-            --text-muted: #cbd5e1;
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
             --accent-gemini: #818cf8;
             --accent-cancer: #fb7185;
             --success: #34d399;
@@ -37,7 +37,7 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #31103f 50%, #4c1d95 100%);
+            background: linear-gradient(135deg, #090d16 0%, #1f0b2d 50%, #31104a 100%);
             color: var(--text-main);
             min-height: 100vh;
             width: 100%;
@@ -60,24 +60,24 @@
         .blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.45;
+            filter: blur(90px);
+            opacity: 0.4;
             animation: move 18s infinite alternate;
         }
 
         .b1 {
             top: -10%;
             left: -10%;
-            width: 300px;
-            height: 300px;
+            width: 320px;
+            height: 320px;
             background: #6366f1;
         }
 
         .b2 {
             bottom: -10%;
             right: -10%;
-            width: 300px;
-            height: 300px;
+            width: 320px;
+            height: 320px;
             background: #f43f5e;
             animation-delay: -4s;
         }
@@ -93,19 +93,19 @@
 
         .glass {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border: 1px solid var(--glass-border);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02));
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 22px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             width: 100%;
         }
 
@@ -174,42 +174,46 @@
             padding: 24px;
             max-width: 100%;
             overflow-x: hidden;
-            padding-bottom: 40px;
+            padding-bottom: 60px;
         }
 
         h2 {
             font-size: 1.5rem;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
 
         label {
             display: block;
-            margin-bottom: 6px;
-            font-size: 0.82rem;
+            margin-bottom: 8px;
+            font-size: 0.88rem;
             color: var(--text-muted);
             font-weight: 600;
         }
 
         input {
             width: 100%;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.35);
             border: 1px solid var(--glass-border);
             color: white;
             padding: 14px 16px;
             border-radius: 14px;
             font-family: inherit;
-            margin-bottom: 16px;
-            font-size: 16px; /* Mencegah zoom otomatis di iOS */
+            margin-bottom: 18px;
+            font-size: 16px;
             transition: 0.2s;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
         }
 
         input:focus {
             outline: none;
             border-color: var(--accent-gemini);
-            background: rgba(0, 0, 0, 0.45);
-            box-shadow: 0 0 10px rgba(129, 140, 248, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 12px rgba(129, 140, 248, 0.3);
         }
 
         button {
@@ -230,7 +234,8 @@
         .btn-primary {
             background: linear-gradient(135deg, #6366f1, #f43f5e);
             color: white;
-            box-shadow: 0 4px 20px rgba(244, 63, 94, 0.35);
+            box-shadow: 0 6px 20px rgba(244, 63, 94, 0.35);
+            margin-top: 4px;
         }
 
         .btn-primary:active {
@@ -256,7 +261,7 @@
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 24px;
             align-items: start;
         }
 
@@ -290,12 +295,12 @@
         }
 
         td {
-            padding: 12px 8px;
+            padding: 14px 8px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             word-break: break-word;
         }
 
-        /* Mobile Glass Navbar Atas (Dioptimalkan untuk iPhone 15 & layar HP modern) */
+        /* Mobile Glass Navbar Atas */
         .mobile-header {
             display: none;
             align-items: center;
@@ -304,36 +309,36 @@
             position: sticky;
             top: 0;
             z-index: 90;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
-            margin: -20px -20px 20px -20px;
+            margin: -24px -24px 0px -24px; /* Margin bawah disesuaikan agar ada jarak dengan judul */
             padding-top: max(16px, env(safe-area-inset-top));
         }
 
         .mobile-logo {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             background: linear-gradient(to right, #818cf8, #fb7185);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .avatar-badge {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             background: linear-gradient(135deg, #6366f1, #f43f5e);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1rem;
-            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.4);
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
             cursor: pointer;
         }
 
@@ -345,7 +350,7 @@
             width: 75%;
             max-width: 280px;
             height: 100vh;
-            background: rgba(15, 23, 42, 0.95);
+            background: rgba(15, 23, 42, 0.98);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border-left: 1px solid var(--glass-border);
@@ -358,7 +363,7 @@
 
         .mobile-drawer.open {
             right: 0;
-            box-shadow: -20px 0 50px rgba(0, 0, 0, 0.7);
+            box-shadow: -20px 0 50px rgba(0, 0, 0, 0.8);
         }
 
         #overlay {
@@ -367,7 +372,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.65);
             z-index: 105;
             opacity: 0;
             pointer-events: none;
@@ -383,26 +388,26 @@
 
         #install-prompt {
             position: fixed;
-            bottom: max(20px, env(safe-area-inset-bottom));
+            bottom: max(24px, env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, #6366f1, #f43f5e);
             color: white;
-            padding: 12px 24px;
+            padding: 12px 26px;
             border-radius: 50px;
             display: none;
             z-index: 3000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             font-weight: 700;
             font-size: 0.9rem;
             cursor: pointer;
             white-space: nowrap;
         }
 
-        /* Penyesuaian khusus layar HP / iPhone 15 */
+        /* Penyesuaian Khusus HP / iPhone 15 dengan Margin Top Elegan */
         @media (max-width: 768px) {
             .sidebar {
-                display: none; /* Sembunyikan sidebar desktop di HP */
+                display: none;
             }
 
             .mobile-header {
@@ -410,23 +415,24 @@
             }
 
             .content {
-                padding: 20px;
-                padding-bottom: calc(40px + env(safe-area-inset-bottom));
+                padding: 0 20px;
+                padding-bottom: calc(50px + env(safe-area-inset-bottom));
+            }
+
+            /* Memberikan jarak atas yang pas dan elegan di bawah header mobile */
+            .content h2:first-of-type {
+                margin-top: 40px;
             }
 
             h2 {
                 font-size: 1.35rem;
-                margin-bottom: 14px;
+                margin-bottom: 16px;
             }
 
             .glass-card {
                 padding: 18px;
                 border-radius: 20px;
-                margin-bottom: 14px;
-            }
-
-            .responsive-mt{
-                margin-top: 40px;
+                margin-bottom: 16px;
             }
         }
 
@@ -448,7 +454,7 @@
         .login-box {
             width: 100%;
             max-width: 380px;
-            padding: 32px 24px;
+            padding: 36px 24px;
             text-align: center;
             border-radius: 24px;
         }
@@ -457,7 +463,7 @@
             background: linear-gradient(135deg, rgba(129, 140, 248, 0.15), rgba(244, 63, 94, 0.15));
             border: 1px solid rgba(251, 113, 133, 0.3);
             border-radius: 20px;
-            padding: 18px 20px;
+            padding: 20px;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
@@ -517,11 +523,11 @@
                     <i class="ri-store-2-line"></i> HeyCase
                 </div>
                 <div class="avatar-badge" onclick="toggleDrawer()">
-                    <i class="ri-user-3-line"></i>
+                    <i class="ri-menu-3-line"></i>
                 </div>
             </div>
 
-            <h2 class="responsive-mt">Pengeluaran & Modal Awal</h2>
+            <h2>Pengeluaran & Modal Awal</h2>
 
             <div class="summary-card glass">
                 <div>
@@ -535,9 +541,9 @@
 
             <div class="grid">
                 <div class="glass-card">
-                    <h3><i class="ri-add-circle-line"></i> Tambah Pengeluaran</h3>
+                    <h3 style="margin-bottom: 16px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;"><i class="ri-add-circle-line" style="color: var(--accent-gemini);"></i> Tambah Pengeluaran</h3>
                     <label>Untuk (Keperluan / Keterangan)</label>
-                    <input type="text" id="m_untuk" placeholder="Contoh: Beli Bahan Baku / Sewa Tempat">
+                    <input type="text" id="m_untuk" placeholder="Contoh: Beli Bahan Baku">
                     
                     <label>Jumlah Uang (Rp)</label>
                     <input type="number" id="m_uang" placeholder="Contoh: 1500000">
@@ -549,7 +555,7 @@
                 </div>
 
                 <div class="glass-card">
-                    <h3>Riwayat Pengeluaran Modal</h3>
+                    <h3 style="margin-bottom: 16px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;"><i class="ri-history-line" style="color: var(--accent-cancer);"></i> Riwayat Pengeluaran Modal</h3>
                     <div class="table-responsive" style="max-height: 380px;">
                         <table>
                             <thead>
@@ -712,10 +718,6 @@
             } catch (error) {
                 alert("Gagal menyimpan: " + error.message);
             }
-        };
-
-        window.deleteModal = async () => {
-            // function stub preserved
         };
 
         window.deleteModal = async (id) => {
